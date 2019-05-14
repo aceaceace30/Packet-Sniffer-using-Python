@@ -7,9 +7,11 @@ import struct
 import binascii
 import os
 import pye
+from datetime import datetime
 from email_sender import *
 
 
+date_now = datetime.now()
 # if operating system is windows
 if os.name == "nt":
     s = socket.socket(socket.AF_INET,socket.SOCK_RAW,socket.IPPROTO_IP)
@@ -30,7 +32,7 @@ while True:
     # extract packets with the help of pye.unpack class 
     unpack=pye.unpack()
 
-    message = ""
+    message = str(date_now) + "\n\n"
 
     print("\n\n------------ Ethernet Header ------------")
     # print data on terminal
@@ -57,4 +59,4 @@ while True:
         print("{} : {} | ".format(a,b),)
         message += "{} : {} | ".format(a,b)
 
-    send_mail("NETWORK SNIFFER", message)
+    send_mail("Network Header Data", message)
